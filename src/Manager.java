@@ -27,14 +27,18 @@ public class Manager {
 
 
     public void start() throws InterruptedException {
-        this.executor = Executors.newFixedThreadPool(threads);
         this.start = new Date();
-        Collection<Callable<Object>> workers = new ArrayList<>();
-        for (int i = 0; i < threads; i++) {
-            workers.add(new Worker(Integer.toString(i), this, notPrimes));
+        if (threads > 1) {
+            this.executor = Executors.newFixedThreadPool(threads);
+            Collection<Callable<Object>> workers = new ArrayList<>();
+            for (int i = 0; i < threads; i++) {
+                workers.add(new Worker(Integer.toString(i), this, notPrimes));
+            }
+            this.executor.invokeAll(workers);
+            this.executor.shutdown();
+        } else {
+            new Worker("0", this, notPrimes).call();
         }
-        this.executor.invokeAll(workers);
-        this.executor.shutdown();
 
         this.end = new Date();
         this.print();
