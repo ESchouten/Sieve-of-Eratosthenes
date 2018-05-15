@@ -23,11 +23,11 @@ public class Manager {
         this.until = (int) Math.ceil(Math.sqrt(limit));
         this.output = output;
         this.threads = threads;
-        this.executor = Executors.newFixedThreadPool(threads);
     }
 
 
     public void start() throws InterruptedException {
+        this.executor = Executors.newFixedThreadPool(threads);
         this.start = new Date();
         Collection<Callable<Object>> workers = new ArrayList<>();
         for (int i = 0; i < threads; i++) {
