@@ -28,7 +28,7 @@ public class Manager {
 
     public void start() throws InterruptedException {
         this.start = new Date();
-        if (threads > 1) {
+        if (threads > 0) {
             this.executor = Executors.newFixedThreadPool(threads);
             Collection<Callable<Object>> workers = new ArrayList<>();
             for (int i = 0; i < threads; i++) {
