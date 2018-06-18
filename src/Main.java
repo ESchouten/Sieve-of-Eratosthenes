@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         test(4);
 
@@ -29,7 +29,7 @@ public class Main {
         }
     }
 
-    private static void test(int threads) {
+    private static void test(int threads) throws Exception {
 
         for (int i = 0; i < threads; i++) {
             new Thread(() -> {
@@ -44,13 +44,7 @@ public class Main {
 
         Manager manager = new Manager(1000, threads, false);
 
-        List<Integer> primes = null;
-
-        try {
-            primes = manager.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<Integer> primes = manager.start();
 
         StringJoiner sj = new StringJoiner(", ");
         for (Integer prime: primes) {
