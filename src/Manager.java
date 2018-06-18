@@ -26,7 +26,7 @@ public class Manager {
     }
 
 
-    public void start() throws InterruptedException {
+    public List<Integer> start() throws InterruptedException {
         this.start = new Date();
         if (threads > 0) {
             this.executor = Executors.newFixedThreadPool(threads);
@@ -41,7 +41,15 @@ public class Manager {
         }
 
         this.end = new Date();
-        this.print();
+        if (output) this.print();
+
+        List<Integer> primes = new ArrayList<>();
+        if (until >= 2) primes.add(2);
+        for (int i = 3; i < notPrimes.length; i = i + 2) {
+            if(!notPrimes[i]) primes.add(i);
+        }
+
+        return primes;
     }
 
     public synchronized int getNext(String worker) {
@@ -57,11 +65,5 @@ public class Manager {
 
     private void print() {
         System.out.println(this.end.getTime() - this.start.getTime() + " ms");
-
-        if (output) {
-            for (int i = 2; i < notPrimes.length; i++) {
-                if(!notPrimes[i]) System.out.print(i + ", ");
-            }
-        }
     }
 }
