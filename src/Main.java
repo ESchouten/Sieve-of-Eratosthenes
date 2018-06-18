@@ -5,28 +5,27 @@ import java.util.concurrent.ExecutionException;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-
         test(4);
 
-        int threads = 4;
-        int max = 1000;
-        int tries = 6;
-
-        for (int j = 0; j < tries; j++) {
-            for (int i = 0; i < threads; i++) {
-                new Thread(() -> {
-                    DistributableWorker worker = new DistributableWorker();
-                    try {
-                        worker.main(new String[0]);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-            }
-
-            Manager manager = new Manager(max, threads, false);
-            manager.start();
-        }
+//        int threads = 4;
+//        int max = 1000;
+//        int tries = 6;
+//
+//        for (int j = 0; j < tries; j++) {
+//            for (int i = 0; i < threads; i++) {
+//                new Thread(() -> {
+//                    DistributableWorker worker = new DistributableWorker();
+//                    try {
+//                        worker.main(new String[0]);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }).start();
+//            }
+//
+//            Manager manager = new Manager(max, threads, false);
+//            manager.start();
+//        }
     }
 
     private static void test(int threads) throws Exception {
